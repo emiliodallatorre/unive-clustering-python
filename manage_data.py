@@ -24,8 +24,8 @@ print(df.shape)
 # 0 means white and 1 means black
 
 # i want to see the 80 images
-fig, ax = plt.subplots(8, 10, figsize=(10, 8))
-for i in range(8):
+fig, ax = plt.subplots(20, 10, figsize=(10, 20))
+for i in range(20):
     for j in range(10):
         ax[i, j].imshow(df.iloc[i*10+j].values.reshape(16, 16), cmap='gray')
         ax[i, j].axis('off')

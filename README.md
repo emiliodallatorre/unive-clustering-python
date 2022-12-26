@@ -7,3 +7,7 @@ Il clustering è un metodo di apprendimento non supervisionato, in quanto non ri
 
 ## il dataset che andiamo ad utilizzare è sameion.csv
 Il dataset è composto da 6000 righe e 256 colonne. Le prime 256 colonne sono le features, le ultime 10 sono le classi.
+ogni riga rappresenta un'immagine di dimensione 16x16 pixel, ogni pixel è rappresentato da un valore 0 se è bianco, 1 se è nero.
+ogni immagine è rappresentata da 256 features, che sono i valori dei pixel.
+ogni immagine è rappresentata da 10 classi, che sono i valori delle lettere che rappresentano l'immagine.
+
