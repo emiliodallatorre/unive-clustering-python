@@ -1,11 +1,6 @@
 import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
-import seaborn as sns
-from sklearn.metrics import accuracy_score
-from sklearn.metrics import confusion_matrix
-from sklearn.mixture import GaussianMixture, BayesianGaussianMixture
-from sklearn.model_selection import train_test_split
+from sklearn.mixture import GaussianMixture
 
 # open a csv file but do not consider the last 10 columns
 df = pd.read_csv('semeion.csv', sep=' ', usecols=range(0, 256), names=range(0, 256))
@@ -36,9 +31,12 @@ c16 = df[y_pred == 16]
 c17 = df[y_pred == 17]
 c18 = df[y_pred == 18]
 c19 = df[y_pred == 19]
-# c20 = df[y_pred == 20]
 
-print(c0.shape, c1.shape, c2.shape, c3.shape, c4.shape, c5.shape, c6.shape, c7.shape, c8.shape, c9.shape)
+print(c0.shape, c1.shape, c2.shape, c3.shape,
+      c4.shape, c5.shape, c6.shape, c7.shape,
+      c8.shape, c9.shape, c10.shape, c11.shape,
+      c12.shape, c13.shape, c14.shape, c15.shape,
+      c16.shape, c17.shape, c18.shape, c19.shape)
 
 # plot the result
 fig, ax = plt.subplots(4, 5, figsize=(5, 4))
