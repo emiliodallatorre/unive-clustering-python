@@ -11,3 +11,12 @@ ogni riga rappresenta un'immagine di dimensione 16x16 pixel, ogni pixel è rappr
 ogni immagine è rappresentata da 256 features, che sono i valori dei pixel.
 ogni immagine è rappresentata da 10 classi, che sono i valori delle lettere che rappresentano l'immagine.
 
+# Gaussian Mixture Model
+## come funziona
+Il Gaussian Mixture Model è un modello di clustering che utilizza una distribuzione gaussiana per modellare ogni cluster.
+
+## come lo implementiamo
+Per implementare il GMM abbiamo utilizzato la libreria sklearn, che ci ha permesso di utilizzare il metodo GMM.
+Il metodo GMM ci ha permesso di creare un modello che ha 10 cluster, cioè 20 classi.
+Il metodo GMM ci ha permesso di fare il fit del modello, cioè di addestrare il modello con i dati di training.
+Il metodo GMM ci ha permesso di fare il predict del modello, cioè di predire le classi dei dati di test.
