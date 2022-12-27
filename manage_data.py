@@ -1,12 +1,19 @@
 # this is a file to open and read the data from the csv file and understand the data
 
+# Semeion Handwritten Digit. (2008). UCI Machine Learning Repository.
+# Retrieved from https://archive.ics.uci.edu/ml/datasets/Semeion+Handwritten+Digit
+
 import matplotlib.pyplot as plt
 import pandas as pd
 
 # open a csc file but do not consider the last 10 columns
 numbers = range(256)
 df = pd.read_csv('semeion.csv', sep=' ', usecols=range(0, 256), names=numbers)
-print(df.shape)
+# print(df.shape)
+
+# this is the dataset that contains the right answer for each image in the dataset
+control = pd.read_csv('semeion.csv', sep=' ', usecols=range(256, 266), names=range(10))
+# print(control.head())
 
 # this is a dataset of 1593 images of 16x16 pixels
 # each image is a handwritten digit from 0 to 9
