@@ -52,6 +52,32 @@ print('Accuracy: ', accuracy_score(y_test, y_pred))
 # plt.show()
 
 # i want to see the confusion matrix using seaborn
+'''
+cm = confusion_matrix(y_test, y_pred)
+plt.figure(figsize=(10, 10))
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
+plt.title('Confusion matrix')
+plt.ylabel('Actual')
+plt.xlabel('Predicted')
+plt.tight_layout()
+plt.show()
+'''
+# now to improve perfomance a wanto to use PCA to reduce the dimensionality of the dataset
+
+from sklearn.decomposition import PCA
+
+pca = PCA(n_components=50)
+X_train_pca = pca.fit_transform(X_train)
+X_test_pca = pca.transform(X_test)
+
+GBB = GaussianMixture(n_components=10, covariance_type='diag', max_iter=1000, random_state=0)
+
+GBB.fit(X_train_pca, y_train)
+
+y_pred = GBB.predict(X_test_pca)
+
+print('Accuracy: ', accuracy_score(y_test, y_pred))
+# and see the confusion matrix again
 
 cm = confusion_matrix(y_test, y_pred)
 plt.figure(figsize=(10, 10))
