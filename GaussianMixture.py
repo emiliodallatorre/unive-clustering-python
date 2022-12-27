@@ -51,5 +51,4 @@ plt.savefig('GaussianMixture_with 20 cluster.png')
 plt.show()
 
 # now i want to do the same thing but using PCA
-from sklearn.decomposition import PCA
 
