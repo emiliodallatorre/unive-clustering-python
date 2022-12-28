@@ -1,3 +1,6 @@
+import numpy as np
+
+
 def rand_index(clusters, classes):
     """Calculate Rand index.
     Parameters
@@ -20,6 +23,6 @@ def rand_index(clusters, classes):
     n = sum_comb * 2
     return (n_ac + n_bd) / n
 
+
 def comb2(n):
     return n * (n - 1) / 2
-
