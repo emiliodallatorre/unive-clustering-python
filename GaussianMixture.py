@@ -1,15 +1,24 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.mixture import GaussianMixture
+import time as time
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
 
 # open a csv file but do not consider the last 10 columns
 df = pd.read_csv('semeion.csv', sep=' ', usecols=range(0, 256), names=range(0, 256))
 
+# standardize the data
+X_std = StandardScaler().fit_transform(df)
+
+# do pca
+pca = PCA(0.3)
+X_pca = pca.fit_transform(X_std)
 
 # from the result, we can see that n_components = 10 is the best choice
 GM: GaussianMixture = GaussianMixture(n_components=20, covariance_type='diag', random_state=0)
-GM.fit(df)
-y_pred = GM.predict(df)
+GM.fit(X_pca)
+y_pred = GM.predict(X_pca)
 print(list(set(y_pred)))
 c0 = df[y_pred == 0]
 c1 = df[y_pred == 1]
@@ -42,7 +51,7 @@ print(c0.shape, c1.shape, c2.shape, c3.shape,
 fig, ax = plt.subplots(4, 5, figsize=(5, 4))
 for i in range(20):
     ax[i // 5, i % 5].imshow(eval('c' + str(i)).mean(axis=0).values.reshape(16, 16), cmap='gray')
-    ax[i // 5, i % 5].set_title('cluster ' + str(i))
+    ax[i // 5, i % 5].set_title('cluster n:' + str(i))
     ax[i // 5, i % 5].axis('off')
 plt.tight_layout()
 plt.savefig('GaussianMixture_with 20 cluster.png')
