@@ -71,3 +71,6 @@ plt.axis('off')
 plt.title('right answer: ' + str(control[index]))
 plt.tight_layout()
 plt.show()
+
+# how to save an image in a specific folder in this case in the folder 'images'
+# plt.savefig('images/GaussianMixture_with 20 cluster.png')
