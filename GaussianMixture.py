@@ -56,7 +56,7 @@ print(c0.shape, c1.shape, c2.shape, c3.shape,
 # plot the result
 fig, ax = plt.subplots(4, 5, figsize=(5, 4))
 for i in range(20):
-    ax[i // 5, i % 5].imshow(eval('c' + str(i)).mean(axis=0).values.reshape(16, 16), cmap='gray')
+    ax[i // 5, i % 5].imshow(eval('c' + str(i)).mean(axis=0).values.reshape(16, 16), cmap='Blues')
     ax[i // 5, i % 5].set_title('cluster n:' + str(i))
     ax[i // 5, i % 5].axis('off')
 plt.tight_layout()
@@ -64,8 +64,10 @@ plt.tight_layout()
 plt.show()
 
 # take an image from the first cluster and extraxt his index in the dataframe
-index = c0.index[6]
+index = c12.index[8]
 # plot the image
-plt.imshow(df.loc[index].values.reshape(16, 16), cmap='gray')
+plt.imshow(df.loc[index].values.reshape(16, 16), cmap='Blues')
+plt.axis('off')
 plt.title('right answer: ' + str(control[index]))
+plt.tight_layout()
 plt.show()
