@@ -23,16 +23,23 @@ fase di clustering, ma sarà utilizzata successivamente, nel momento in cui andr
 metodi utilizzati.  
 Le classi sono numeri da 0 a 9, che rappresentano i numeri scritti a mano.
 
-# Gaussian Mixture Model
+## Principal Compoment Analysis (PCA)
 
-## come funziona
+PCA è un metodo di analisi dei dati che permette di ridurre la dimensionalità dei dati, cioè di ridurre il numero di
+caratteristiche che descrivono i dati.
+Un vantaggio di questo metodo è che permette di ridurre il tempo di calcolo, in quanto riduce il numero di operazioni
+che devono essere eseguite.
+Un altro vantaggio è che permette di visualizzare i dati in un grafico bidimensionale, in quanto riduce la
+dimensionalità
+dei dati da 256 a 2.
+Un altro vantaggio è che permette di visualizzare i dati in un grafico bidimensionale, in quanto riduce la
+dimensionalità
+dei dati da 256 a 2.
+PCA funziona in questo modo:
 
-Il Gaussian Mixture Model è un modello di clustering che utilizza una distribuzione gaussiana per modellare ogni
-cluster.
-
-## come lo implementiamo
-
-Per implementare il GMM abbiamo utilizzato la libreria sklearn, che ci ha permesso di utilizzare il metodo GMM.
-Il metodo GMM ci ha permesso di creare un modello che ha 10 cluster, cioè 20 classi.
-Il metodo GMM ci ha permesso di fare il fit del modello, cioè di addestrare il modello con i dati di training.
-Il metodo GMM ci ha permesso di fare il predict del modello, cioè di predire le classi dei dati di test.
+- calcola la media di tutti i dati
+- calcola la matrice di covarianza
+- calcola gli autovalori e gli autovettori della matrice di covarianza
+- seleziona gli autovettori con gli autovalori più grandi
+- calcola la matrice di proiezione dei dati
+- calcola i dati proiettati
