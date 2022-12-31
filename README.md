@@ -2,7 +2,7 @@
 
 Terzo assignment di Informatica 2. il main topic è il clustering.
 
-## clusterings
+## clustering
 
 Il clustering è un metodo di analisi dei dati non supervisionato, che permette quindi di raggruppare insiemi di dati in
 base

@@ -8,7 +8,13 @@ from sklearn.decomposition import PCA
 # open a csv file but do not consider the last 10 columns
 df = pd.read_csv('semeion.csv', sep=' ', usecols=range(0, 256), names=range(0, 256))
 
-# standardize the data
+# the last 10 columns are the labels of the digits where 1 means the digit is the number of the column and 0 means it is not
+control = pd.read_csv('semeion.csv', sep=' ', usecols=range(256, 266), names=range(10))
+control = control.idxmax(axis=1)
+# add a column to the dataframe that contains the right answer
+# df['right_answer'] = control
+
+
 X_std = StandardScaler().fit_transform(df)
 
 # do pca
@@ -54,8 +60,12 @@ for i in range(20):
     ax[i // 5, i % 5].set_title('cluster n:' + str(i))
     ax[i // 5, i % 5].axis('off')
 plt.tight_layout()
-plt.savefig('GaussianMixture_with 20 cluster.png')
+# plt.savefig('GaussianMixture_with 20 cluster.png')
 plt.show()
 
-# now i want to do the same thing but using PCA
-
+# take an image from the first cluster and extraxt his index in the dataframe
+index = c0.index[6]
+# plot the image
+plt.imshow(df.loc[index].values.reshape(16, 16), cmap='gray')
+plt.title('right answer: ' + str(control[index]))
+plt.show()
