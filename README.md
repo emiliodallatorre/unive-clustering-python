@@ -43,3 +43,5 @@ PCA funziona in questo modo:
 - seleziona gli autovettori con gli autovalori più grandi
 - calcola la matrice di proiezione dei dati
 - calcola i dati proiettati
+
+#  
