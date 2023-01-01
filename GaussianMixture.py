@@ -1,9 +1,11 @@
+from math import comb
+from statistics import mode
+
 import matplotlib.pyplot as plt
 import pandas as pd
-from sklearn.mixture import GaussianMixture
-import time as time
-from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
+from sklearn.mixture import GaussianMixture
+from sklearn.preprocessing import StandardScaler
 
 # open a csv file but do not consider the last 10 columns
 df = pd.read_csv('semeion.csv', sep=' ', usecols=range(0, 256), names=range(0, 256))
@@ -72,5 +74,40 @@ plt.title('right answer: ' + str(control[index]))
 plt.tight_layout()
 plt.show()
 
-# how to save an image in a specific folder in this case in the folder 'images'
-# plt.savefig('images/GaussianMixture_with 20 cluster.png')
+# for every cluster I want to know the number of the digit that is the most present cecking the control dataframe
+mode_cluster: pd.DataFrame = pd.DataFrame(columns=['cluster', 'mode'])
+for i in range(20):
+    mode_cluster = pd.concat([mode_cluster, pd.DataFrame([[i, mode(control[eval('c' + str(i)).index])]],
+                                                         columns=['cluster', 'mode'])])
+    print('cluster n:', i, 'right answer:', mode(control[eval('c' + str(i)).index]))
+    # work as I expected :)
+
+# now i want the rand index of the cluster and need the binomial coefficient for the number of pairs of elements in
+# the cluster I need to count the number of pairs of elements in the cluster and the number of pairs of elements in
+# the cluster that have the same label
+
+# for every cluster I want to know the number of the digit that is the most present cecking the control dataframe
+rand_index: pd.DataFrame = pd.DataFrame(columns=['cluster', 'rand_index'])
+for i in range(20):
+    # count the number of pairs of elements in the cluster
+    n = comb(eval('c' + str(i)).shape[0], 2)
+    # count the number of pairs of elements in the cluster that have the same label
+    a = 0
+    for j in range(eval('c' + str(i)).shape[0]):
+        for k in range(j + 1, eval('c' + str(i)).shape[0]):
+            if control[eval('c' + str(i)).index[j]] == control[eval('c' + str(i)).index[k]]:
+                a += 1
+    # count the number of pairs of elements in the cluster that have different label
+    b = n - a
+    # count the number of pairs of elements in the cluster that have the same label
+    c = 0
+    for j in range(eval('c' + str(i)).shape[0]):
+        for k in range(j + 1, eval('c' + str(i)).shape[0]):
+            if control[eval('c' + str(i)).index[j]] != control[eval('c' + str(i)).index[k]]:
+                c += 1
+    # count the number of pairs of elements in the cluster that have different label
+    d = n - c
+    # calculate the rand index
+    rand_index = pd.concat([rand_index, pd.DataFrame([[i, (a + d) / (a + b + c + d)]],
+                                                     columns=['cluster', 'rand_index'])])
+    print('cluster n:', i, 'rand index:', (a + d) / (a + b + c + d))
