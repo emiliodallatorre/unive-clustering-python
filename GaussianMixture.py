@@ -1,4 +1,5 @@
 from math import comb
+from statistics import mode
 
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -72,7 +73,7 @@ plt.axis('off')
 plt.title('right answer: ' + str(control[index]))
 plt.tight_layout()
 plt.show()
-"""
+
 # for every cluster I want to know the number of the digit that is the most present cecking the control dataframe
 mode_cluster: pd.DataFrame = pd.DataFrame(columns=['cluster', 'mode'])
 for i in range(20):
@@ -87,6 +88,7 @@ for i in range(20):
 
 # for every cluster I want to know the number of the digit that is the most present cecking the control dataframe
 rand_index: pd.DataFrame = pd.DataFrame(columns=['cluster', 'rand_index'])
+
 for i in range(20):
     # count the number of pairs of elements in the cluster
     n = comb(eval('c' + str(i)).shape[0], 2)
@@ -114,7 +116,7 @@ for i in range(20):
 # i want only one rand index for the gaussian mixture
 print('rand index for the gaussian mixture:', rand_index['rand_index'].mean())
 # not like this :(
-"""
+
 
 # For each value of k (or kernel width) provide the value of the Rand index:
 # R=2(a+b)/(n(n-1))
@@ -147,6 +149,21 @@ d = n - c
 # calculate the rand index
 print('rand index for the gaussian mixture:', (a + d) / (a + b + c + d))
 
-# I want to plot the rand index for the gaussian mixture for different number of clusters
-# I need to count the number of pairs of elements in the cluster and the number of pairs of elements in
-# the cluster that have the same label
+n = comb(df.shape[0], 2)
+a = 0
+for j in range(df.shape[0]):  # for every image
+    for k in range(j + 1, df.shape[0]):  # for every image after the image j
+        if control[df.index[j]] == mode_cluster[mode_cluster['cluster'] == y_pred[j]]['mode'].values[0]:
+            a += 1
+# count the number of pairs of elements in the cluster that have different label
+b = n - a
+# count the number of pairs of elements in the cluster that have the same label
+c = 0
+for j in range(df.shape[0]):  # for every image
+    for k in range(j + 1, df.shape[0]):  # for every image after the image j
+        if control[df.index[j]] != mode_cluster[mode_cluster['cluster'] == y_pred[j]]['mode'].values[0]:
+            c += 1
+# count the number of pairs of elements in the cluster that have different label
+d = n - c
+# calculate the rand index
+print('rand index for the gaussian mixture:', (a + d) / (a + b + c + d))

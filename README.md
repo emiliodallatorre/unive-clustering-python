@@ -44,4 +44,21 @@ PCA funziona in questo modo:
 - calcola la matrice di proiezione dei dati
 - calcola i dati proiettati
 
-#  
+## Rand Index
+
+Il Rand Index è un indice che permette di valutare la qualità di un clustering.
+Il Rand Index è definito come:
+
+$$
+RI = \frac{a+b}{a+b+c+d}
+$$
+
+dove:
+
+- a = numero di coppie di dati che sono state assegnate allo stesso cluster e sono corrette
+- b = numero di coppie di dati che sono state assegnate a cluster diversi e sono corrette
+- c = numero di coppie di dati che sono state assegnate allo stesso cluster e sono sbagliate
+- d = numero di coppie di dati che sono state assegnate a cluster diversi e sono sbagliate
+- a+b+c+d = numero totale di coppie di dati
+
+#   
