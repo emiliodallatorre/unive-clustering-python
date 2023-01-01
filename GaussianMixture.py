@@ -1,6 +1,6 @@
 from math import comb
 from statistics import mode
-
+import time as time
 import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.decomposition import PCA
@@ -10,7 +10,8 @@ from sklearn.preprocessing import StandardScaler
 # open a csv file but do not consider the last 10 columns
 df = pd.read_csv('semeion.csv', sep=' ', usecols=range(0, 256), names=range(0, 256))
 
-# the last 10 columns are the labels of the digits where 1 means the digit is the number of the column and 0 means it is not
+# the last 10 columns are the labels of the digits where 1 means the digit is the number of the column and 0 means it
+# is not
 control = pd.read_csv('semeion.csv', sep=' ', usecols=range(256, 266), names=range(10))
 control = control.idxmax(axis=1)
 # add a column to the dataframe that contains the right answer
@@ -20,11 +21,12 @@ control = control.idxmax(axis=1)
 X_std = StandardScaler().fit_transform(df)
 
 # do pca
-pca = PCA(0.3)
+pca = PCA(0.2)
 X_pca = pca.fit_transform(X_std)
+print(pca.n_components_)
 
 # from the result, we can see that n_components = 10 is the best choice
-GM: GaussianMixture = GaussianMixture(n_components=20, covariance_type='diag', random_state=0)
+GM: GaussianMixture = GaussianMixture(n_components=20, covariance_type='diag', random_state=1)
 GM.fit(X_pca)
 y_pred = GM.predict(X_pca)
 print(list(set(y_pred)))
@@ -72,7 +74,7 @@ plt.imshow(df.loc[index].values.reshape(16, 16), cmap='Blues')
 plt.axis('off')
 plt.title('right answer: ' + str(control[index]))
 plt.tight_layout()
-plt.show()
+# plt.show()
 
 # for every cluster I want to know the number of the digit that is the most present cecking the control dataframe
 mode_cluster: pd.DataFrame = pd.DataFrame(columns=['cluster', 'mode'])
@@ -93,7 +95,7 @@ for i in range(20):
     # count the number of pairs of elements in the cluster
     n = comb(eval('c' + str(i)).shape[0], 2)
     # count the number of pairs of elements in the cluster that have the same label
-    a = 0
+    a: int = 0
     for j in range(eval('c' + str(i)).shape[0]):
         for k in range(j + 1, eval('c' + str(i)).shape[0]):
             if control[eval('c' + str(i)).index[j]] == control[eval('c' + str(i)).index[k]]:
@@ -101,7 +103,7 @@ for i in range(20):
     # count the number of pairs of elements in the cluster that have different label
     b = n - a
     # count the number of pairs of elements in the cluster that have the same label
-    c = 0
+    c: int = 0
     for j in range(eval('c' + str(i)).shape[0]):
         for k in range(j + 1, eval('c' + str(i)).shape[0]):
             if control[eval('c' + str(i)).index[j]] != control[eval('c' + str(i)).index[k]]:
@@ -127,28 +129,7 @@ print('rand index for the gaussian mixture:', rand_index['rand_index'].mean())
 
 # I need to count the number of pairs of elements in the cluster and the number of pairs of elements in
 # the cluster that have the same label
-
-# count the number of pairs of elements in the cluster
-n = comb(df.shape[0], 2)
-# count the number of pairs of elements in the cluster that have the same label
-a = 0
-for j in range(df.shape[0]):  # for every image
-    for k in range(j + 1, df.shape[0]):  # for every image after the image j
-        if control[df.index[j]] == control[df.index[k]]:
-            a += 1
-# count the number of pairs of elements in the cluster that have different label
-b = n - a
-# count the number of pairs of elements in the cluster that have the same label
-c = 0
-for j in range(df.shape[0]):  # for every image
-    for k in range(j + 1, df.shape[0]):  # for every image after the image j
-        if control[df.index[j]] != control[df.index[k]]:
-            c += 1
-# count the number of pairs of elements in the cluster that have different label
-d = n - c
-# calculate the rand index
-print('rand index for the gaussian mixture:', (a + d) / (a + b + c + d))
-
+start: float = time.time()
 n = comb(df.shape[0], 2)
 a = 0
 for j in range(df.shape[0]):  # for every image
@@ -166,4 +147,4 @@ for j in range(df.shape[0]):  # for every image
 # count the number of pairs of elements in the cluster that have different label
 d = n - c
 # calculate the rand index
-print('rand index for the gaussian mixture:', (a + d) / (a + b + c + d))
+print('rand index for the gaussian mixture:', (a + d) / (a + b + c + d), 'time:', time.time() - start)
