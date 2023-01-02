@@ -22,7 +22,6 @@ for i in range(6):
     ax[i // 3, i % 3].set_ylabel('explained variance', fontsize=35, labelpad=20)
     ax[i // 3, i % 3].tick_params(axis='both', which='major', labelsize=10)
     ax[i // 3, i % 3].grid()
-
 plt.tight_layout()
 plt.savefig("images/pcaReduction.png")
 plt.show()
