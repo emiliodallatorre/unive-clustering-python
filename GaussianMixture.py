@@ -1,6 +1,6 @@
 from math import comb
 from statistics import mode
-import time as time
+
 import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.decomposition import PCA
@@ -21,7 +21,7 @@ control = control.idxmax(axis=1)
 X_std = StandardScaler().fit_transform(df)
 
 # do pca
-pca = PCA(0.2)
+pca = PCA(2)
 X_pca = pca.fit_transform(X_std)
 print(pca.n_components_)
 
@@ -127,15 +127,24 @@ print('rand index for the gaussian mixture:', rand_index['rand_index'].mean())
 # • a is the number of pairs of images that represent the same digit and that are clustered together.
 # • b is the number of pairs of images that represent different digits and that are placed in different clusters.
 
+
+# **********************************************************************************************************************
 # I need to count the number of pairs of elements in the cluster and the number of pairs of elements in
 # the cluster that have the same label
+import time as time
+
 start: float = time.time()
 n = comb(df.shape[0], 2)
+
+A: int = 0
+B: int = 0
+
 a = 0
 for j in range(df.shape[0]):  # for every image
     for k in range(j + 1, df.shape[0]):  # for every image after the image j
         if control[df.index[j]] == mode_cluster[mode_cluster['cluster'] == y_pred[j]]['mode'].values[0]:
             a += 1
+    A += a
 # count the number of pairs of elements in the cluster that have different label
 b = n - a
 # count the number of pairs of elements in the cluster that have the same label
@@ -144,7 +153,10 @@ for j in range(df.shape[0]):  # for every image
     for k in range(j + 1, df.shape[0]):  # for every image after the image j
         if control[df.index[j]] != mode_cluster[mode_cluster['cluster'] == y_pred[j]]['mode'].values[0]:
             c += 1
+    B += c
 # count the number of pairs of elements in the cluster that have different label
 d = n - c
 # calculate the rand index
 print('rand index for the gaussian mixture:', (a + d) / (a + b + c + d), 'time:', time.time() - start)
+print('rand index 2 for the gaussian mixture:', 2 * (b + d) / (1593 * 1592), 'time:', time.time() - start)
+#**********************************************************************************************************************
