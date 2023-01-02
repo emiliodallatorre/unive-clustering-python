@@ -47,6 +47,8 @@ PCA funziona in questo modo:
 ## Rand Index
 
 Il Rand Index è un indice che permette di valutare la qualità di un clustering.
+usando questo indice, si può valutare la qualità di un clustering, confrontando il clustering ottenuto con un
+clustering di riferimento.
 Il Rand Index è definito come:
 
 $$
@@ -61,4 +63,17 @@ dove:
 - d = numero di coppie di dati che sono state assegnate a cluster diversi e sono sbagliate
 - a+b+c+d = numero totale di coppie di dati
 
-#   
+## gaussian mixture model
+
+Il gaussian mixture model è un modello di clustering probabilistico che permette di raggruppare insiemi di dati in base
+alle loro
+caratteristiche. Per il suo utilizzo si assume che i dati siano stati generati secondo un numero finito k di gaussiane
+con parametri sconosciuti.
+La stima dei parametri della gaussiana viene fatta usando l'algoritmo Expectation-Maximization (EM), ovvero si calcola
+la probabilità che un dato punto appartenga ad una certa gaussiana, e si aggiorna il valore dei parametri della
+gaussiana in base a questa probabilità.
+il file gaussian_mixture_model.py contiene la classe GaussianMixtureModel che implementa questo modello. viene riportato
+una
+serie di grafici che mostrano come cambiano i parametri della gaussiana in base al numero di iterazioni dell'algoritmo
+EM.
+
