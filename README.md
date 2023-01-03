@@ -77,3 +77,11 @@ una
 serie di grafici che mostrano come cambiano i parametri della gaussiana in base al numero di iterazioni dell'algoritmo
 EM.
 
+## mean shift clustering
+
+Il mean shift clustering è un algoritmo di clustering non supervisionato che permette di raggruppare insiemi di dati in
+base alle loro caratteristiche. Mean Shift Clustering è un algoritmo non supervisionato che permette di raggruppare
+insiemi
+di dati in base alle loro caratteristiche. Il nome si può intendere come spostamento alla media in modo iterativo, ad
+ogni
+iterazione ogni punto viene spostato verso la regione più consona e la posizione finale sarà il cluster di appartenenza. 
