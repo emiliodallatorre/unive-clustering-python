@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
+from scipy.special import comb
 from sklearn.decomposition import PCA
 from sklearn.mixture import GaussianMixture
 from sklearn.preprocessing import StandardScaler
@@ -34,8 +36,23 @@ for i in range(15):
     ax[i // 5, i % 5].set_title('pca: ' + str(pca.n_components_) + '\ncluster n:' + str(i), fontsize=25)
     ax[i // 5, i % 5].axis('off')
 plt.tight_layout()
-plt.savefig('images/gaussianpca10cluster15.png')
+# plt.savefig('images/gaussianpca10cluster15.png')
 plt.show()
+
+
+def rand_index(actual, pred):
+    tp_plus_fp = comb(np.bincount(actual), 2).sum()
+    tp_plus_fn = comb(np.bincount(pred), 2).sum()
+    A = np.c_[(actual, pred)]
+    tp = sum(comb(np.bincount(A[A[:, 0] == i, 1]), 2).sum()
+             for i in set(actual))
+    fp = tp_plus_fp - tp
+    fn = tp_plus_fn - tp
+    tn = comb(len(A), 2) - tp - fp - fn
+    return (tp + tn) / (tp + fp + fn + tn)
+
+
+print(rand_index(control, y_pred))
 
 """
 c0 = df[y_pred == 0]

@@ -5,10 +5,23 @@ from itertools import cycle
 import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
+from scipy.special import comb
 from sklearn.cluster import MeanShift
 from sklearn.decomposition import PCA
 
+
 # how to load semeion.csv file in the previous folder
+
+def rand_index(actual, pred):
+    tp_plus_fp = comb(np.bincount(actual), 2).sum()
+    tp_plus_fn = comb(np.bincount(pred), 2).sum()
+    A = np.c_[(actual, pred)]
+    tp = sum(comb(np.bincount(A[A[:, 0] == i, 1]), 2).sum()
+             for i in set(actual))
+    fp = tp_plus_fp - tp
+    fn = tp_plus_fn - tp
+    tn = comb(len(A), 2) - tp - fp - fn
+    return (tp + tn) / (tp + fp + fn + tn)
 
 
 # load data
@@ -45,15 +58,21 @@ for i in range(8):
             ax[j, i].set_title('n_components = %d,\n bandwidth = %.3f' % (pca_n[i], bandwidth[j]), fontsize=20)
             ax[j, i].set_xticks(())
             ax[j, i].set_yticks(())
-            ax[j, i].text(0.99, 0.01, f'time = {round(time.time() - start, 2)} s',  # tempo di esecuzione
+            ax[j, i].text(0.99, 0.01, f't = {round(time.time() - start, 2)} s',  # tempo di esecuzione
                           transform=ax[j, i].transAxes, size=15,
                           horizontalalignment='right')
             ax[j, i].text(0.01, 0.01, f'clusters = {n_clusters_}',
                           transform=ax[j, i].transAxes, size=15,
                           horizontalalignment='left')
+            # calculate the rand index for every clustering
+
+            rand_inde = rand_index(control, labels)
+            ax[j, i].text(0.01, 0.99, f'rand index = {round(rand_inde, 3)}',
+                          transform=ax[j, i].transAxes, size=15,
+                          horizontalalignment='left')
 
 plt.tight_layout()
-plt.savefig('images/MeanShiftParamAnalysis.png')
+plt.savefig('../images/MeanShiftParamAnalysis.png')
 plt.show()
 
 """
@@ -109,3 +128,8 @@ plt.show()
 plt.imshow(cluster_centers[0].reshape(16, 16), cmap='gray')
 #plt.show()
 """
+# how to use rand index from sklearn to evaluate the clustering
+from sklearn.metrics.cluster import adjusted_rand_score
+
+rand_index = adjusted_rand_score(control, labels)
+print(rand_index)
