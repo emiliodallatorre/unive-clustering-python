@@ -29,6 +29,7 @@ for i in range(8):
         start: float = time.time()
         ms = MeanShift(bandwidth=bandwidth[j], bin_seeding=True)
         ms.fit(df_pca)
+        end: float = time.time()
         labels = ms.labels_
         cluster_centers = ms.cluster_centers_
         labels_unique = np.unique(labels)
@@ -44,7 +45,7 @@ for i in range(8):
             ax[j, i].set_title('n_components = %d,\n bandwidth = %.3f' % (pca_n[i], bandwidth[j]), fontsize=20)
             ax[j, i].set_xticks(())
             ax[j, i].set_yticks(())
-            ax[j, i].text(0.99, 0.01, f't = {round(time.time() - start, 2)} s',  # tempo di esecuzione
+            ax[j, i].text(0.99, 0.01, f't = {round(end - start, 2)} s',  # tempo di esecuzione
                           transform=ax[j, i].transAxes, size=15,
                           horizontalalignment='right')
             ax[j, i].text(0.01, 0.01, f'clusters = {n_clusters_}',
