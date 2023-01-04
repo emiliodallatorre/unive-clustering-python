@@ -41,6 +41,14 @@ for i in range(len(cluster_centers)):
     new_labels.append(target[labels == i].mode()[0])
 print(*new_labels)
 
+# now i want to replace the old labels with the new ones
+new_labels_list = []
+for old_label in labels:
+    new_labels_list.append(new_labels[new_labels.index(old_label)])
+labels = new_labels_list
+
+print(*labels)
+
 # pca inverse transform
 data_pca_inverse = pca.inverse_transform(data_pca)
 data = data_pca_inverse
@@ -50,21 +58,15 @@ import matplotlib.pyplot as plt
 
 fig, ax = plt.subplots(2, 6, figsize=(10, 4))
 for i in range(len(cluster_centers)):
-    ax[i // 6, i % 6].imshow(data[labels == i].mean(axis=0).reshape(16, 16))
+    ax[i // 6, i % 6].imshow(data[labels == i].mean(axis=0).reshape(16, 16), cmap='Blues')
+    ax[i // 6, i % 6].set_title(labels[i])
+    ax[i // 6, i % 6].axis('off')
 
 plt.tight_layout()
 plt.show()
 
 # do the rand index
 
-
-# print(adjusted_rand_score(target, new_labels))
-
-# i want to reneme the old labels to the new labels
-for i in range(len(new_labels)):
-    labels[labels == i] = new_labels[i]
-
-print(*labels)
 
 from sklearn.metrics import adjusted_rand_score
 

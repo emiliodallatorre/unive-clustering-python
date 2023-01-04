@@ -1,7 +1,5 @@
 import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
-from scipy.special import comb
 from sklearn.decomposition import PCA
 from sklearn.mixture import GaussianMixture
 from sklearn.preprocessing import StandardScaler
@@ -12,7 +10,7 @@ df = pd.read_csv('../semeion.csv', sep=' ', usecols=range(0, 256), names=range(0
 # the last 10 columns are the labels of the digits where 1 means the digit is the number of the column and 0 means it
 # is not
 control = pd.read_csv('../semeion.csv', sep=' ', usecols=range(256, 266), names=range(10))
-control = control.idxmax(axis=1)
+target = control.idxmax(axis=1)
 # add a column to the dataframe that contains the right answer
 # df['right_answer'] = control
 
@@ -29,30 +27,28 @@ GM: GaussianMixture = GaussianMixture(n_components=15, covariance_type='diag', r
 GM.fit(X_pca)
 y_pred = GM.predict(X_pca)
 
+
+
+# i want to rename the labels after the mode of the label in every cluster
+new_labels = []
+for i in range(0, 15):
+    new_labels.append(target[y_pred == i].mode()[0])
+
+# now i want to replace the old labels with the new ones
+for i in range(0, 15):
+    y_pred[y_pred == i] = new_labels[i]
+
 # plot the result
 fig, ax = plt.subplots(3, 5, figsize=(15, 11))
 for i in range(15):
     ax[i // 5, i % 5].imshow(df[y_pred == i].mean(axis=0).values.reshape(16, 16), cmap='Blues')
-    ax[i // 5, i % 5].set_title('pca: ' + str(pca.n_components_) + '\ncluster n:' + str(i), fontsize=25)
+    ax[i // 5, i % 5].set_title('pca: ' + str(pca.n_components_) + '\ncluster n: ' + str(new_labels[i]), fontsize=25)
     ax[i // 5, i % 5].axis('off')
 plt.tight_layout()
 # plt.savefig('images/gaussianpca10cluster15.png')
 plt.show()
 
 
-def rand_index(actual, pred):
-    tp_plus_fp = comb(np.bincount(actual), 2).sum()
-    tp_plus_fn = comb(np.bincount(pred), 2).sum()
-    A = np.c_[(actual, pred)]
-    tp = sum(comb(np.bincount(A[A[:, 0] == i, 1]), 2).sum()
-             for i in set(actual))
-    fp = tp_plus_fp - tp
-    fn = tp_plus_fn - tp
-    tn = comb(len(A), 2) - tp - fp - fn
-    return (tp + tn) / (tp + fp + fn + tn)
-
-
-print(rand_index(control, y_pred))
 
 """
 c0 = df[y_pred == 0]
