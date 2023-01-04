@@ -35,39 +35,19 @@ print('Number of clusters: ', len(cluster_centers))
 print(*labels)
 print(*target)
 
-# i want to rename the labels after the mode of the label in every cluster
-new_labels = []
-for i in range(len(cluster_centers)):
-    new_labels.append(target[labels == i].mode()[0])
-print(*new_labels)
+clusters: dict = {}
+for i, label in enumerate(labels):
+    if label not in clusters:
+        clusters[label] = [target[i]]
+    else:
+        clusters[label].append(target[i])
 
-# now i want to replace the old labels with the new ones
-new_labels_list = []
-for old_label in labels:
-    new_labels_list.append(new_labels[new_labels.index(old_label)])
-labels = new_labels_list
+from randind import rand_index_
 
-print(*labels)
+print(rand_index_(clusters))
 
-# pca inverse transform
-data_pca_inverse = pca.inverse_transform(data_pca)
-data = data_pca_inverse
-
-# plot the mean of the image for every cluster
+# want to plot the mean shift
 import matplotlib.pyplot as plt
 
-fig, ax = plt.subplots(2, 6, figsize=(10, 4))
-for i in range(len(cluster_centers)):
-    ax[i // 6, i % 6].imshow(data[labels == i].mean(axis=0).reshape(16, 16), cmap='Blues')
-    ax[i // 6, i % 6].set_title(labels[i])
-    ax[i // 6, i % 6].axis('off')
-
-plt.tight_layout()
+plt.scatter(data_pca[:, 0], data_pca[:, 1], c=labels, s=40, cmap='tab20')
 plt.show()
-
-# do the rand index
-
-
-from sklearn.metrics import adjusted_rand_score
-
-print(adjusted_rand_score(target, labels))
