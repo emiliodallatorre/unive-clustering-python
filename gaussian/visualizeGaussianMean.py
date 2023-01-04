@@ -3,6 +3,7 @@ import pandas as pd
 from sklearn.decomposition import PCA
 from sklearn.mixture import GaussianMixture
 from sklearn.preprocessing import StandardScaler
+from randind import rand_index_
 
 # open a csv file but do not consider the last 10 columns
 df = pd.read_csv('../semeion.csv', sep=' ', usecols=range(0, 256), names=range(0, 256))
@@ -27,22 +28,14 @@ GM: GaussianMixture = GaussianMixture(n_components=15, covariance_type='diag', r
 GM.fit(X_pca)
 y_pred = GM.predict(X_pca)
 
-
-
-# i want to rename the labels after the mode of the label in every cluster
-new_labels = []
-for i in range(0, 15):
-    new_labels.append(target[y_pred == i].mode()[0])
-
-# now i want to replace the old labels with the new ones
-for i in range(0, 15):
-    y_pred[y_pred == i] = new_labels[i]
+# calculate the rand index
+print(rand_index_(target, y_pred))
 
 # plot the result
 fig, ax = plt.subplots(3, 5, figsize=(15, 11))
 for i in range(15):
     ax[i // 5, i % 5].imshow(df[y_pred == i].mean(axis=0).values.reshape(16, 16), cmap='Blues')
-    ax[i // 5, i % 5].set_title('pca: ' + str(pca.n_components_) + '\ncluster n: ' + str(new_labels[i]), fontsize=25)
+    ax[i // 5, i % 5].set_title('pca: ' + str(pca.n_components_) + '\ncluster n: ' + str(i), fontsize=25)
     ax[i // 5, i % 5].axis('off')
 plt.tight_layout()
 # plt.savefig('images/gaussianpca10cluster15.png')

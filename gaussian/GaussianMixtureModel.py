@@ -9,18 +9,7 @@ from scipy.special import comb
 from sklearn.decomposition import PCA
 from sklearn.mixture import GaussianMixture
 from sklearn.preprocessing import StandardScaler
-
-
-def rand_index(actual, pred):
-    tp_plus_fp = comb(np.bincount(actual), 2).sum()
-    tp_plus_fn = comb(np.bincount(pred), 2).sum()
-    A = np.c_[(actual, pred)]
-    tp = sum(comb(np.bincount(A[A[:, 0] == i, 1]), 2).sum()
-             for i in set(actual))
-    fp = tp_plus_fp - tp
-    fn = tp_plus_fn - tp
-    tn = comb(len(A), 2) - tp - fp - fn
-    return (tp + tn) / (tp + fp + fn + tn)
+from randind import rand_index_
 
 
 # load the data
@@ -64,14 +53,17 @@ for pca_n in number_of_pca:
                                                                   color='black',
                                                                   bbox=dict(facecolor='white', alpha=0.5))
         # calculate rand index
-        a, b, c, d = 0, 0, 0, 0
 
-        rand_inde = rand_index(control, y_pred)
-        ax[number_of_pca.index(pca_n)][number_of_k.index(k)].annotate('RI:' + str(round(rand_inde, 3)),
-                                                                      xy=(1.1, 1.1), xycoords='axes fraction',
-                                                                      horizontalalignment='center',
-                                                                      ha='left', va='top', fontsize=20,
-                                                                      bbox=dict(facecolor='white', alpha=0.5))
+        rand_inde = rand_index_(control, y_pred)
+        # add rand index in corner botton left of every subplot inside the figure
+        ax[number_of_pca.index(pca_n)][number_of_k.index(k)].text(0.01, 0.01, 'ri:' + str(round(rand_inde, 3)),
+                                                                  fontsize=20,
+                                                                  transform=ax[number_of_pca.index(pca_n)][
+                                                                      number_of_k.index(k)].transAxes,
+                                                                  verticalalignment='bottom',
+                                                                  horizontalalignment='left',
+                                                                  color='black',
+                                                                  bbox=dict(facecolor='white', alpha=0.5))
 
 plt.tight_layout()
 plt.savefig("../images/gmm.png")
