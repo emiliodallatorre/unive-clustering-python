@@ -51,7 +51,6 @@ for i in range(8):
             ax[j, i].text(0.01, 0.01, f'clusters = {n_clusters_}',
                           transform=ax[j, i].transAxes, size=15,
                           horizontalalignment='left')
-
             # calcolo rand index
             rand_indexx = rand_index_(control, labels)
             # want to add the rand index to every subplot in corner top right
