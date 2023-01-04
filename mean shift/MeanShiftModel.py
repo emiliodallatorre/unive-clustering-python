@@ -51,6 +51,7 @@ for i in range(8):
                           transform=ax[j, i].transAxes, size=15,
                           horizontalalignment='left')
 
+            # calcolo rand index
             rand_indexx = rand_index_(control, labels)
             # want to add the rand index to every subplot in corner top right
             ax[j, i].text(0.99, 0.99, f'rand index = {round(rand_indexx, 2)}',
