@@ -46,17 +46,26 @@ for i in range(8):
             ax[j, i].set_xticks(())
             ax[j, i].set_yticks(())
             ax[j, i].text(0.99, 0.01, f't = {round(end - start, 2)} s',  # tempo di esecuzione
-                          transform=ax[j, i].transAxes, size=15,
-                          horizontalalignment='right')
+                          transform=ax[j, i].transAxes, size=12,
+                          horizontalalignment='right',
+                          verticalalignment='bottom',
+                          color='black',
+                          bbox=dict(boxstyle='round', facecolor='white', alpha=0.5))
             ax[j, i].text(0.01, 0.01, f'clusters = {n_clusters_}',
-                          transform=ax[j, i].transAxes, size=15,
-                          horizontalalignment='left')
+                          transform=ax[j, i].transAxes, size=12,
+                          horizontalalignment='left',
+                          verticalalignment='bottom',
+                          color='black',
+                          bbox=dict(boxstyle='round', facecolor='white', alpha=0.5))
             # calcolo rand index
             rand_indexx = rand_index_(control, labels)
-            # want to add the rand index to every subplot in corner top right
+            # want to add the rand index to every subplot in corner top right inside the plot
             ax[j, i].text(0.99, 0.99, f'rand index = {round(rand_indexx, 2)}',
-                          transform=ax[j, i].transAxes, size=15,
-                          horizontalalignment='right')
+                          transform=ax[j, i].transAxes, size=12,
+                          horizontalalignment='right',
+                          verticalalignment='top',
+                          color='black',
+                          bbox=dict(boxstyle='round', facecolor='white', alpha=0.5))
 
 plt.tight_layout()
 plt.savefig('../images/MeanShiftParamAnalysis.png')
