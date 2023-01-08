@@ -16,7 +16,7 @@ pca = PCA(n_components=5)
 pca.fit(df)
 df_pca = pca.transform(df)
 
-ms = MeanShift(bandwidth=2, bin_seeding=True)
+ms = MeanShift(bandwidth=2)
 ms.fit(df_pca)
 labels = ms.labels_
 cluster_centers = ms.cluster_centers_
@@ -43,34 +43,3 @@ ax[1, 5].set_visible(False)
 plt.tight_layout()
 # plt.savefig('images/MeanShiftClusterCenters.png')
 plt.show()
-from sklearn.metrics.cluster import adjusted_rand_score
-
-rand_index = adjusted_rand_score(control, labels)
-print(*labels)
-
-import numpy as np
-from scipy.special import comb
-
-
-# define Rand index function
-def rand_index(actual, pred):
-    tp_plus_fp = comb(np.bincount(actual), 2).sum()
-    tp_plus_fn = comb(np.bincount(pred), 2).sum()
-    A = np.c_[(actual, pred)]
-    tp = sum(comb(np.bincount(A[A[:, 0] == i, 1]), 2).sum()
-             for i in set(actual))
-    fp = tp_plus_fp - tp
-    fn = tp_plus_fn - tp
-    tn = comb(len(A), 2) - tp - fp - fn
-    return (tp + tn) / (tp + fp + fn + tn)
-
-
-print(rand_index(control, labels))
-
-# calculate Rand index
-# rand_index([1, 1, 1, 2, 2], [1, 1, 2, 2, 3])
-#
-# 0.6
-
-
-print(rand_index)
