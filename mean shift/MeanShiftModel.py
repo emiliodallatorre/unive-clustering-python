@@ -14,8 +14,6 @@ from randind import rand_index_
 df = pd.read_csv('../semeion.csv', sep=' ', usecols=range(256), names=range(256))
 control = pd.read_csv('../semeion.csv', sep=' ', usecols=range(256, 266), names=range(256, 266))
 control = control.idxmax(axis=1)
-pca_n: list = [2, 3, 4, 5, 6, 8, 10, 20]  # sono 8 righe
-bandwidth: list = [1.0, 1.25, 1.5, 1.75, 2, 2.25]  # sono 6 colonne
 
 # plot the data
 fig, ax = plt.subplots(6, 8, figsize=(40, 30))

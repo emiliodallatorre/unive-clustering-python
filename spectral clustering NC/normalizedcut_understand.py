@@ -19,10 +19,10 @@ control = control.idxmax(axis=1)
 # standardize the data
 X_std = StandardScaler().fit_transform(df)
 
-number_of_pca: list = [2, 3, 4, 5, 6]  # sono 5 righe
+number_of_pca: list = [2, 3, 4, 5, 6, 7]  # sono 5 righe
 number_of_k: list = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15]  # sono 10 componenti
 
-fig, ax = plt.subplots(5, 10, figsize=(50, 40))
+fig, ax = plt.subplots(6, 10, figsize=(50, 40))
 # do pca
 for pca_n in number_of_pca:
     pca = PCA(n_components=int(pca_n))
@@ -64,5 +64,5 @@ for pca_n in number_of_pca:
                                                                   bbox=dict(facecolor='white', alpha=0.5))
         print(k, pca_n)
 plt.tight_layout()
-plt.savefig('../images/spectral_clustering.png')
+# plt.savefig('../images/spectral_clustering.png')
 plt.show()
