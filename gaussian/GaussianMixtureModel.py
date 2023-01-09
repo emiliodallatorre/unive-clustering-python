@@ -26,9 +26,9 @@ number_of_k = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15]  # sono 10
 fig, ax = plt.subplots(7, 10, figsize=(50, 40))
 # do pca
 for pca_n in number_of_pca:
+    pca = PCA(n_components=int(pca_n))
+    X_pca = pca.fit_transform(X_std)
     for k in number_of_k:
-        pca = PCA(n_components=int(pca_n))
-        X_pca = pca.fit_transform(X_std)
         # do gaussian mixture model and take the time
         start: float = time.time()
         GM: GaussianMixture = GaussianMixture(n_components=int(k),
