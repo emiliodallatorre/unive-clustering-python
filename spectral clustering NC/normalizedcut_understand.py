@@ -19,10 +19,10 @@ control = control.idxmax(axis=1)
 # standardize the data
 X_std = StandardScaler().fit_transform(df)
 
-number_of_pca: list = [2, 3, 4, 5, 6, 8, 10, 20]  # sono 8 righe
+number_of_pca: list = [2, 3, 4, 5, 6]  # sono 5 righe
 number_of_k: list = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15]  # sono 10 componenti
 
-fig, ax = plt.subplots(8, 10, figsize=(60, 50))
+fig, ax = plt.subplots(5, 10, figsize=(50, 40))
 # do pca
 for pca_n in number_of_pca:
     pca = PCA(n_components=int(pca_n))
@@ -40,7 +40,7 @@ for pca_n in number_of_pca:
                                                                        fontsize=30)
         ax[number_of_pca.index(pca_n)][number_of_k.index(k)].set_xticks([])
         ax[number_of_pca.index(pca_n)][number_of_k.index(k)].set_yticks([])
-        # want to insert a text in every subplot in bottomright corner
+        # want to insert a text in every subplot in bottom right corner
         ax[number_of_pca.index(pca_n)][number_of_k.index(k)].text(0.99, 0.01,
                                                                   't:' + str(round(time.time() - start, 3)),
                                                                   fontsize=20,
@@ -64,4 +64,5 @@ for pca_n in number_of_pca:
                                                                   bbox=dict(facecolor='white', alpha=0.5))
         print(k, pca_n)
 plt.tight_layout()
+plt.savefig('../images/spectral_clustering.png')
 plt.show()
