@@ -2,15 +2,13 @@
 
 import time as time
 
-import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
-from scipy.special import comb
 from sklearn.decomposition import PCA
 from sklearn.mixture import GaussianMixture
 from sklearn.preprocessing import StandardScaler
-from randind import rand_index_
 
+from randind import rand_index_
 
 # load the data
 df = pd.read_csv('../semeion.csv', sep=' ', usecols=range(0, 256), names=range(0, 256))
