@@ -37,7 +37,7 @@ X_reconstructed = pca.inverse_transform(X_pca)
 fig, ax = plt.subplots(3, 5, figsize=(15, 11))
 for i in range(15):
     ax[i // 5, i % 5].imshow(X_reconstructed[y_pred == i].mean(axis=0).reshape(16, 16), cmap='Blues')
-    ax[i // 5, i % 5].set_title(f'Gaussian {i}')
+    ax[i // 5, i % 5].set_title('pca: ' + str(pca.n_components_) + '\ncluster n: ' + str(i), fontsize=15)
     ax[i // 5, i % 5].axis('off')
 plt.tight_layout()
 plt.show()

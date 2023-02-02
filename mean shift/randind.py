@@ -11,7 +11,6 @@ def rand_index_(target, labels):
         else:
             raw_clustering[label].append(target[i])
 
-
     start_time = time()
 
     # Calculate A
@@ -40,4 +39,3 @@ def rand_index_(target, labels):
     # rint("Tempo di esecuzione: ", end_time - start_time)
 
     return 2 * (a + b) / (n * (n - 1))
-
