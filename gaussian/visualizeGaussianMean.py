@@ -31,6 +31,18 @@ y_pred = GM.predict(X_pca)
 # calculate the rand index
 print(rand_index_(target, y_pred))
 
+# pca reconstruction
+X_reconstructed = pca.inverse_transform(X_pca)
+# i want to plot the mean of each gaussian
+fig, ax = plt.subplots(3, 5, figsize=(15, 11))
+for i in range(15):
+    ax[i // 5, i % 5].imshow(X_reconstructed[y_pred == i].mean(axis=0).reshape(16, 16), cmap='Blues')
+    ax[i // 5, i % 5].set_title(f'Gaussian {i}')
+    ax[i // 5, i % 5].axis('off')
+plt.tight_layout()
+plt.show()
+
+"""
 # plot the result
 fig, ax = plt.subplots(3, 5, figsize=(15, 11))
 for i in range(15):
@@ -40,3 +52,4 @@ for i in range(15):
 plt.tight_layout()
 plt.savefig('../images/gaussianpca25cluster15.png')
 plt.show()
+"""
