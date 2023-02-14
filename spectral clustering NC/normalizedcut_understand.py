@@ -30,7 +30,7 @@ for pca_n in number_of_pca:
     for k in number_of_k:
         # do gaussian mixture model and take the time
         start: float = time.time()
-        SC: SpectralClustering = SpectralClustering(n_clusters=int(k), assign_labels='cluster_qr', n_init=1000)
+        SC: SpectralClustering = SpectralClustering(n_clusters=int(k), assign_labels='kmeans', n_init=1000)
         SC.fit(X_pca)
         y_pred = SC.labels_
         # plot the result
@@ -64,5 +64,5 @@ for pca_n in number_of_pca:
                                                                   bbox=dict(facecolor='white', alpha=0.5))
         print(k, pca_n)
 plt.tight_layout()
-plt.savefig('../images/spectral_clustering_clusterqr.png')
+plt.savefig('../images/spectral_clustering_kmeans.png')
 plt.show()
