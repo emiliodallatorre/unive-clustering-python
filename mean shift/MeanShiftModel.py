@@ -19,10 +19,10 @@ control = control.idxmax(axis=1)
 fig, ax = plt.subplots(6, 8, figsize=(40, 30))
 
 for i in range(8):
+    pca = PCA(n_components=pca_n[i])
+    pca.fit(df)
+    df_pca = pca.transform(df)
     for j in range(6):
-        pca = PCA(n_components=pca_n[i])
-        pca.fit(df)
-        df_pca = pca.transform(df)
         # estimate bandwidth for mean shift
         start: float = time.time()
         ms = MeanShift(bandwidth=bandwidth[j], bin_seeding=True)
