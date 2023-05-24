@@ -11,8 +11,8 @@ from sklearn.preprocessing import StandardScaler
 from randind import rand_index_
 
 # load the data
-df = pd.read_csv('../semeion.csv', sep=' ', usecols=range(0, 256), names=range(0, 256))
-control = pd.read_csv('../semeion.csv', sep=' ', usecols=range(256, 266), names=range(10))
+df = pd.read_csv('../data/semeion.csv', sep=' ', usecols=range(0, 256), names=range(0, 256))
+control = pd.read_csv('../data/semeion.csv', sep=' ', usecols=range(256, 266), names=range(10))
 control = control.idxmax(axis=1)
 
 # standardize the data

@@ -5,8 +5,8 @@
 import pandas as pd
 
 # read the data from the csv file
-data = pd.read_csv('semeion.csv', sep=' ', usecols=range(256), names=range(256))
-target = pd.read_csv('semeion.csv', sep=' ', usecols=range(256, 266), names=range(10))
+data = pd.read_csv('data/semeion.csv', sep=' ', usecols=range(256), names=range(256))
+target = pd.read_csv('data/semeion.csv', sep=' ', usecols=range(256, 266), names=range(10))
 target = target.idxmax(axis=1)
 
 # standardize the data using the standard scaler

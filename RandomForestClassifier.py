@@ -11,10 +11,10 @@ import seaborn as sns
 
 # open a csv file but do not consider the last 10 columns
 numbers = range(256)
-df = pd.read_csv('semeion.csv', sep=' ', usecols=range(0, 256), names=numbers)
+df = pd.read_csv('data/semeion.csv', sep=' ', usecols=range(0, 256), names=numbers)
 
 # this is the dataset that contains the right answer for each image in the dataset
-control = pd.read_csv('semeion.csv', sep=' ', usecols=range(256, 266), names=range(10))
+control = pd.read_csv('data/semeion.csv', sep=' ', usecols=range(256, 266), names=range(10))
 # i want to trasform control from a matrix of 0 and 1 to a vector of 0 to 9
 control = np.array(control.idxmax(axis=1))
 

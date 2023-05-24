@@ -4,7 +4,7 @@ from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 
 # load data
-df = pd.read_csv('semeion.csv', sep=' ', usecols=range(0, 256), names=range(0, 256))
+df = pd.read_csv('data/semeion.csv', sep=' ', usecols=range(0, 256), names=range(0, 256))
 df.head()
 
 # standardizzo i dati ad aver una media di zero e varianza 1

@@ -8,8 +8,8 @@ from sklearn.cluster import MeanShift
 from sklearn.decomposition import PCA
 
 # load data
-df = df = pd.read_csv('../semeion.csv', sep=' ', usecols=range(256), names=range(256))
-control = pd.read_csv('../semeion.csv', sep=' ', usecols=range(256, 266), names=range(10))
+df = df = pd.read_csv('../data/semeion.csv', sep=' ', usecols=range(256), names=range(256))
+control = pd.read_csv('../data/semeion.csv', sep=' ', usecols=range(256, 266), names=range(10))
 control = np.array(control.idxmax(axis=1))
 
 pca = PCA(n_components=5)

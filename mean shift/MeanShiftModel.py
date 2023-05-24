@@ -11,8 +11,8 @@ from sklearn.decomposition import PCA
 from randind import rand_index_
 
 # load data
-df = pd.read_csv('../semeion.csv', sep=' ', usecols=range(256), names=range(256))
-control = pd.read_csv('../semeion.csv', sep=' ', usecols=range(256, 266), names=range(256, 266))
+df = pd.read_csv('../data/semeion.csv', sep=' ', usecols=range(256), names=range(256))
+control = pd.read_csv('../data/semeion.csv', sep=' ', usecols=range(256, 266), names=range(256, 266))
 control = control.idxmax(axis=1)
 
 # plot the data

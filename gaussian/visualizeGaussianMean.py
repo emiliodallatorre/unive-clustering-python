@@ -6,11 +6,11 @@ from sklearn.preprocessing import StandardScaler
 from randind import rand_index_
 
 # open a csv file but do not consider the last 10 columns
-df = pd.read_csv('../semeion.csv', sep=' ', usecols=range(0, 256), names=range(0, 256))
+df = pd.read_csv('../data/semeion.csv', sep=' ', usecols=range(0, 256), names=range(0, 256))
 
 # the last 10 columns are the labels of the digits where 1 means the digit is the number of the column and 0 means it
 # is not
-control = pd.read_csv('../semeion.csv', sep=' ', usecols=range(256, 266), names=range(10))
+control = pd.read_csv('../data/semeion.csv', sep=' ', usecols=range(256, 266), names=range(10))
 target = control.idxmax(axis=1)
 # add a column to the dataframe that contains the right answer
 # df['right_answer'] = control
