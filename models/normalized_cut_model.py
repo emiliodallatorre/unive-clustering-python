@@ -20,13 +20,10 @@ class NormalizedCutModel(ClusteringModelInterface):
 
         self.standardized_x = StandardScaler().fit_transform(data)
 
-    def fit(self, *args, **kwargs):
-        pass
-
     def perform_clustering(self):
         fig, ax = plt.subplots(5, 10, figsize=(50, 40))
-
         loop: tqdm = self.get_pca_loop()
+
         for pca_n in loop:
             pca = PCA(n_components=int(pca_n))
             standardized_x_pca = pca.fit_transform(self.standardized_x)
