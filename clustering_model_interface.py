@@ -15,9 +15,6 @@ class ClusteringModelInterface:
         self.admissible_pcas = admissible_pcas
         self.images_out_path = images_out_path
 
-    def fit(self, *args, **kwargs):
-        pass
-
     def perform_clustering(self):
         pass
 
