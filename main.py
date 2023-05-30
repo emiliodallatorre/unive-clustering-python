@@ -1,7 +1,6 @@
 from pandas import DataFrame, read_csv, Series
 
-from clustering_model_interface import ClusteringModelInterface
-from plots.plot_gaussian_mixture import PlotGaussianMixture
+from models.clustering_model_interface import ClusteringModelInterface
 from plots.plot_pca_analysis import PlotPcaAnalysis
 
 data: DataFrame = read_csv('data/semeion.csv', sep=' ', usecols=range(256), names=range(256))

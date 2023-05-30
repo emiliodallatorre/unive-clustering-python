@@ -1,7 +1,7 @@
 from sklearn.cluster import SpectralClustering
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
-from clustering_model_interface import ClusteringModelInterface
+from models.clustering_model_interface import ClusteringModelInterface
 from pandas import DataFrame, Series
 from matplotlib import pyplot as plt
 from time import time

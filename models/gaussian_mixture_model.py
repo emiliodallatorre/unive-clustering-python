@@ -7,7 +7,7 @@ from sklearn.mixture import GaussianMixture
 from sklearn.preprocessing import StandardScaler
 from tqdm import tqdm
 
-from clustering_model_interface import ClusteringModelInterface
+from models.clustering_model_interface import ClusteringModelInterface
 from random_index import calculate_random_index
 
 
