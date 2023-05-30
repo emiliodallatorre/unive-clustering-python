@@ -6,7 +6,7 @@ from sklearn.preprocessing import StandardScaler
 
 
 class PlotGaussianMixture:
-    images_out_path: str = "images";
+    images_out_path: str = "images"
 
     data: DataFrame = None
     control: Series = None
