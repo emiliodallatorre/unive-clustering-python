@@ -1,7 +1,7 @@
 from scipy.special import comb
 
 
-def calculate_random_index(target, labels):
+def calculate_rand_index(target, labels):
     raw_clustering: dict = {}
     for i, label in enumerate(labels):
         if label not in raw_clustering:

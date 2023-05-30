@@ -9,7 +9,7 @@ from sklearn.decomposition import PCA
 from tqdm import tqdm
 
 from models.clustering_model_interface import ClusteringModelInterface
-from random_index import calculate_random_index
+from rand_index import calculate_rand_index
 
 
 class MeanShiftModel(ClusteringModelInterface):
@@ -65,9 +65,9 @@ class MeanShiftModel(ClusteringModelInterface):
                                       color='black',
                                       bbox=dict(boxstyle='round', facecolor='white', alpha=0.5))
 
-                    random_index = calculate_random_index(self.control, labels)
+                    rand_index = calculate_rand_index(self.control, labels)
 
-                    ax[bandwidth_index, pca_index].text(0.99, 0.99, f'rand index = {round(random_index, 2)}',
+                    ax[bandwidth_index, pca_index].text(0.99, 0.99, f'rand index = {round(rand_index, 2)}',
                                       transform=ax[bandwidth_index, pca_index].transAxes, size=12,
                                       horizontalalignment='right',
                                       verticalalignment='top',

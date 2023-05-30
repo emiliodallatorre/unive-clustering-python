@@ -21,7 +21,7 @@ class PlotPcaAnalysis:
 
         for i, pca_n in enumerate(self.admissible_pcas):
             pca = PCA(pca_n, random_state=1, svd_solver='full', whiten=True)
-            X_pca = pca.fit_transform(self.standardized_x)
+
             ax[i // 3, i % 3].bar(range(1, pca.n_components_ + 1), pca.explained_variance_ratio_, alpha=0.5,
                                   align='center')
             ax[i // 3, i % 3].set_title('number of component: = ' + str(pca_n), fontsize=40)

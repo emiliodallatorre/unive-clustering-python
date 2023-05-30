@@ -7,7 +7,7 @@ from matplotlib import pyplot as plt
 from time import time
 from tqdm import tqdm
 
-from random_index import calculate_random_index
+from rand_index import calculate_rand_index
 
 
 class NormalizedCutModel(ClusteringModelInterface):
@@ -61,10 +61,10 @@ class NormalizedCutModel(ClusteringModelInterface):
                                                                                        bbox=dict(facecolor='white',
                                                                                                  alpha=0.5))
 
-                random_index = calculate_random_index(self.control, y_pred)
+                rand_index = calculate_rand_index(self.control, y_pred)
                 ax[self.admissible_pcas.index(pca_n)][self.admissible_k.index(k)].text(0.01, 0.01,
                                                                                        'ri:' + str(
-                                                                                           round(random_index, 3)),
+                                                                                           round(rand_index, 3)),
                                                                                        fontsize=20,
                                                                                        transform=ax[
                                                                                            self.admissible_pcas.index(
